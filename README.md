@@ -8,52 +8,102 @@ To start a local development server, run:
 
 ```bash
 ng serve
+
+## GestorTareas
+
+Pequeña aplicación de ejemplo para gestionar tareas utilizando Angular.
+
+## Tecnologías principales
+- Angular 20.x
+- TypeScript (~5.9)
+- SCSS (estilos por componente y `src/styles.scss`)
+- Angular Router, Angular Forms
+- RxJS, Zone.js
+- Angular CLI / @angular/build
+- Karma + Jasmine (tests)
+- Prettier
+
+## Requisitos
+- Node.js 18+ (recomendado: Node 18 o 20)
+- npm (o pnpm/yarn si prefieres)
+
+### Instalación
+Desde la raíz del proyecto:
+
+```powershell
+# instalar dependencias
+npm install
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+### Desarrollo (server)
+Inicia el servidor de desarrollo y abre http://localhost:4200/:
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+```powershell
+npm start
+# o
+ng serve
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### Build de producción
 
-```bash
-ng generate --help
+```powershell
+npm run build
 ```
 
-## Building
+Los artefactos finales se generan en `dist/`.
 
-To build the project run:
+### Tests
 
-```bash
-ng build
+```powershell
+npm test
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## Estructura y puntos importantes
+- `src/app` — componentes y servicios. Los componentes usan `standalone: true`.
+- `src/styles.scss` — estilos globales.
+- SCSS por componente (recomendado mantener modularidad).
+- `angular.json` contiene la configuración de build/serve.
 
-## Running unit tests
+## Troubleshooting (Windows): error EPERM al renombrar `.angular\cache`
+Si al ejecutar `ng serve` ves un error tipo:
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
+```
+EPERM: operation not permitted, rename '.angular\cache\...deps_temp_xxx' -> '.angular\cache\...deps'
 ```
 
-## Running end-to-end tests
+Prueba estos pasos (PowerShell):
 
-For end-to-end (e2e) testing, run:
+1. Asegúrate de que no haya procesos node que bloqueen archivos:
 
-```bash
-ng e2e
+```powershell
+# listar procesos node
+Get-Process node -ErrorAction SilentlyContinue | Select-Object Id, ProcessName
+
+# cerrar procesos node si los hay (cuidado: mata todos los node)
+Get-Process node -ErrorAction SilentlyContinue | Stop-Process -Force
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+2. Borra la caché de Angular:
 
-## Additional Resources
+```powershell
+Remove-Item -LiteralPath ".angular\cache" -Recurse -Force -ErrorAction SilentlyContinue
+```
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+3. Reinicia el servidor:
+
+```powershell
+ng serve
+```
+
+Si sigue ocurriendo:
+- Ejecuta PowerShell como Administrador.
+- Comprueba que un anti-virus o Windows Defender no esté bloqueando la carpeta; añade una exclusión temporal para la carpeta del proyecto.
+- Usa Resource Monitor o Sysinternals Handle.exe para identificar el proceso que mantiene un handle en la carpeta.
+
+## Recomendaciones y buenas prácticas
+- Añade en `.gitignore`: `/.angular/`, `node_modules/`, `dist/`.
+- Añade un fichero `engines` en `package.json` o en README indicando la versión de Node recomendada.
+- Usa Prettier configurado en `package.json` para formateo consistente.
+- Considera añadir ESLint para reglas estáticas.
+
+

@@ -1,0 +1,14 @@
+<div class="saludo-container">
+  <!-- Al cambiar el input se borra el mensaje anterior; Enter también envía -->
+  <input
+    [(ngModel)]="nombre"
+    (ngModelChange)="mensaje = ''"
+    (keyup.enter)="saludar()"
+    placeholder="Escribe tu nombre"
+    aria-label="Nombre"
+  />
+
+  <button type="button" (click)="saludar()">Saludar 👋</button>
+
+  <p *ngIf="mensaje">{{ mensaje }}</p>
+</div>

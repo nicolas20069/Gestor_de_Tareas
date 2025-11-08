@@ -1,0 +1,11 @@
+<div class="tarea-form">
+  <input class="tarea-input" [(ngModel)]="nuevaTarea" placeholder="Nueva tarea 🗒️" />
+  <button class="bt-crear" (click)="agregarTarea()">Agregar</button>
+</div>
+
+<ul class="tarea-list">
+  <li *ngFor="let tarea of tareas; let i = index" class="tarea-item">
+    {{ tarea.descripcion | capitalizar }}
+    <button class="bt-eliminar" (click)="eliminarTarea(i)">Eliminar❌</button>
+  </li>
+</ul>

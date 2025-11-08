@@ -1,0 +1,26 @@
+<header>
+  <nav class="navbar">
+    <div class="logo">Gestor de Tareas</div>
+    <input type="checkbox" id="menu-toggle" aria-hidden="true" />
+    <label
+      for="menu-toggle"
+      class="menu-icon"
+      role="button"
+      aria-label="Abrir menú"
+      aria-controls="primary-nav"
+      tabindex="0"
+      >&#9776;</label
+    >
+    <ul id="primary-nav" class="nav-links">
+      <li><a routerLink="/inicio">Inicio</a></li>
+      <li><a routerLink="/saludo">Saludo</a></li>
+      <li><a routerLink="/tareas">Tareas</a></li>
+      <li><a routerLink="/acerca">Acerca</a></li>
+    </ul>
+    <!-- backdrop clickable para cerrar el menu en mobile -->
+    <label for="menu-toggle" class="backdrop" aria-hidden="true"></label>
+  </nav>
+</header>
+<main>
+  <router-outlet></router-outlet>
+</main>

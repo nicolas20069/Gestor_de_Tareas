@@ -1,1 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+/* Quitar márgenes del navegador */
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Asegurar que el header y la navbar ocupen todo el ancho */
+header,
+.navbar {
+  width: 100%;
+  display: flex;
+  box-sizing: border-box;
+}
+
+.navbar {
+  justify-content: space-between; /* distribuir logo y menú */
+}

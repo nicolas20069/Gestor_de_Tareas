@@ -1,0 +1,115 @@
+:host {
+  display: block;
+  padding: 24px 16px;
+}
+
+.saludo-container {
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 32px 20px;
+  background: linear-gradient(145deg, #ffffff, #f0f0f0);
+  border-radius: 16px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+  will-change: transform, box-shadow;
+  position: relative;
+  overflow: visible; /* evitar recorte de sombra */
+}
+
+input {
+  width: 100%;
+  max-width: 300px;
+  padding: 12px 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: clamp(1rem, 2vw, 1.1rem);
+  transition: border-color 0.3s ease;
+
+  &:focus {
+    outline: none;
+    border-color: #3498db;
+  }
+}
+
+button {
+  padding: 12px 24px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: clamp(0.9rem, 1.8vw, 1rem);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #2980b9;
+  }
+}
+
+p {
+  font-size: clamp(1.1rem, 2.2vw, 1.3rem);
+  color: #2c3e50;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+/* Ajustes para móviles */
+@media (max-width: 600px) {
+  :host {
+    padding: 16px 12px;
+  }
+
+  .saludo-container {
+    padding: 24px 16px;
+    gap: 16px;
+  }
+
+  input {
+    padding: 10px 14px;
+  }
+
+  button {
+    padding: 10px 20px;
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+/* Efecto de "levantarse" al pasar el cursor o al recibir foco (teclado) */
+.saludo-container:hover,
+.saludo-container:focus-within {
+  transform: translateY(-8px);
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.16);
+  z-index: 20; /* elevar por encima de vecinos */
+}
+
+/* Capa sutil de overlay al hover (opcional) */
+.saludo-container::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(180deg, rgba(0,0,0,0.00), rgba(0,0,0,0.02));
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms ease;
+}
+
+.saludo-container:hover::after,
+.saludo-container:focus-within::after {
+  opacity: 1;
+}
+
+/* Respetar preferencia por menos movimiento */
+@media (prefers-reduced-motion: reduce) {
+  .saludo-container {
+    transition: none !important;
+    transform: none !important;
+  }
+  .saludo-container::after { transition: none !important; }
+}

@@ -1,0 +1,60 @@
+:host {
+  display: block;
+  padding: 24px 16px;
+}
+
+.acerca-container {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 8px 12px;
+}
+
+h1 {
+  text-align: center;
+  padding: 0.75rem 0;
+  color: #000;
+  font-size: clamp(2.8rem, 4vw, 2.4rem);
+  margin: 0 0 0.5rem 0;
+}
+
+.datos{
+  background: linear-gradient(145deg, #ffffff, #f0f0f0);
+  border-radius: 16px;
+  padding: 32px;
+  text-align: left;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-top: 1.5rem;
+  margin-bottom: 4rem;
+  color: rgba(0,0,0,0.95);
+  font-size: clamp(1.2rem, 2.4vw, 1.15rem);
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.5;
+}
+.datos:hover {
+  box-shadow: 6px 6px rgba(0, 0, 0, 0.15);
+}
+
+.especificaciones{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0.5rem;
+  padding: 8px 12px;
+  color: rgba(0,0,0,0.95);
+  font-size: clamp(0.95rem, 2vw, 1.05rem);
+  font-family: Arial, Helvetica, sans-serif;
+  gap: 0.4rem;
+}
+
+/* Mobile tweaks */
+@media (max-width: 600px) {
+  :host { padding: 16px 10px; }
+  .acerca-container { padding: 6px; }
+  .especificaciones { align-items: stretch; }
+  .especificaciones strong { display: block; }
+}

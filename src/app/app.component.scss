@@ -1,0 +1,123 @@
+:host {
+  display: block;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  box-sizing: border-box;
+  color: white;
+  position: relative;
+  background-color: #0d71b0;
+  padding: 30px 30px;
+
+  .logo {
+    font-weight: 800;
+    font-size: 2.6rem;
+    margin-right: auto;
+    margin-left: 2.5rem;
+    letter-spacing: 0.3px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  /* input checkbox usado para controlar el estado del menu */
+  #menu-toggle {
+    display: none;
+  }
+
+  /* icono hamburguesa: por defecto oculto en pantallas grandes */
+  .menu-icon {
+    display: none;
+    font-size: 1.6rem;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    color: inherit;
+    padding: 6px;
+  }
+
+  /* links en desktop: visibles en fila */
+  .nav-links {
+    display: flex;
+    gap: 10px;
+    font-size: 1.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-links li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 10px;
+    border-radius: 6px;
+    transition: background-color 0.18s, color 0.18s, transform 0.12s;
+  }
+
+  .nav-links li a:hover,
+  .nav-links li a:focus {
+    color: #000000;
+    transform: translateY(-1px);
+  }
+
+  /* estilos mobile */
+  @media (max-width: 600px) {
+    .menu-icon {
+      display: block;
+    }
+
+    /* ocultar links por defecto en mobile; mostrar cuando el checkbox esté checked */
+    .nav-links {
+      position: absolute;
+      top: 56px;
+      left: 0;
+      right: 0;
+      background-color: #010105f1;
+      flex-direction: column;
+      gap: 0;
+      padding: 8px 12px;
+      transform-origin: top;
+      transform: scaleY(0);
+      transition: transform 180ms ease-in-out, opacity 160ms ease-in-out;
+      opacity: 0;
+      z-index: 40;
+    }
+
+    /* cada enlace ocupa toda la linea en mobile */
+    .nav-links li a {
+      padding: 10px 12px;
+      border-radius: 4px;
+      width: 100%;
+      display: block;
+      color: #fff;
+    }
+    .nav-links li a:hover {
+      background-color: #033d93;
+    }
+
+    /* Cuando el toggle esté activo, desplegar con animación */
+    #menu-toggle:checked ~ .nav-links {
+      transform: scaleY(1);
+      opacity: 1;
+    }
+
+    /* backdrop semitransparente que aparece detrás del menu en mobile */
+    .backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.28);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 160ms ease-in-out;
+      z-index: 30;
+    }
+
+    /* mostrar backdrop cuando el menu esté abierto */
+    #menu-toggle:checked ~ .nav-links + .backdrop {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+}
