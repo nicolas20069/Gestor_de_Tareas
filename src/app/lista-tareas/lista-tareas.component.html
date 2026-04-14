@@ -1,11 +1,28 @@
 <div class="tarea-form">
-  <input class="tarea-input" [(ngModel)]="nuevaTarea" placeholder="Nueva tarea 🗒️" />
+  <!-- Campo de entrada para escribir la nueva tarea -->
+  <input
+    [(ngModel)]="nuevaDescripcion"
+    placeholder="Escribe una tarea"
+    maxlength="100"
+    class="tarea-input"
+  />
+
+  <!-- Boton para agregar la nueva tarea a la lista, que llama al método agregarTarea() cuando se hace clic -->
   <button class="bt-crear" (click)="agregarTarea()">Agregar</button>
 </div>
 
+<!-- Lista de tareas, donde se itera sobre el arreglo de tareas utilizando *ngFor para mostrar cada tarea en la interfaz -->
 <ul class="tarea-list">
   <li *ngFor="let tarea of tareas; let i = index" class="tarea-item">
+    <!-- Se muestra la descripción de la tarea, aplicando un pipe personalizado llamado capitalizar para formatear el texto -->
     {{ tarea.descripcion | capitalizar }}
-    <button class="bt-eliminar" (click)="eliminarTarea(i)">Eliminar❌</button>
+
+    <!-- Botón para marcar completada/no completada -->
+    <button class="bt-toggle" (click)="toggleCompletion(i)">
+      {{ tarea.completada ? 'Desmarcar' : 'Completar' }}
+    </button>
+
+    <!-- Botón para eliminar -->
+    <button class="bt-eliminar" (click)="eliminarTarea(i)">Eliminar ❌</button>
   </li>
 </ul>

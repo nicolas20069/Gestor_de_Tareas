@@ -6,16 +6,37 @@
   justify-content: center;
   margin: 2rem 0;
   padding: 0 40px;
-  
 }
 
 .tarea-input {
   flex: 1 1 320px;
   min-width: 140px;
   padding: 14px 20px;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   border-radius: 10px;
   border: 2px solid rgba(5, 3, 3, 0.12);
+}
+
+.tarea-list {
+  list-style: none;
+  padding: 0 80px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.tarea-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.4rem;
+  padding: 10px 20px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.03);
+}
+.tarea-item:hover {
+  background-color: rgba(0, 0, 0, 0.06);
 }
 
 .bt-crear {
@@ -32,29 +53,18 @@
   background-color: #2f8433;
 }
 
-.tarea-list {
-  list-style: none;
-  padding: 0 80px;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-
-.tarea-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 1.35rem;
-  padding: 10px 65px;
+.bt-toggle {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  font-size: 0.95rem;
+  padding: 6px 8px;
   border-radius: 8px;
-  background: rgba(0,0,0,0.03);
+  cursor: pointer;
 }
-.tarea-item:hover {
-  background-color: rgba(0,0,0,0.06);
+.bt-toggle:hover {
+  background-color: #2980b9;
 }
-
 
 .bt-eliminar {
   background-color: #e74c3c;
@@ -66,7 +76,14 @@
   cursor: pointer;
 }
 .bt-eliminar:hover {
-  background-color: #c0392b; 
+  background-color: #c0392b;
+}
+
+.bt-crear:focus,
+.bt-eliminar:focus,
+.bt-toggle:focus {
+  outline: 2px solid #000;
+  outline-offset: 2px;
 }
 
 /* Mobile: apilar y ocupar ancho completo */
