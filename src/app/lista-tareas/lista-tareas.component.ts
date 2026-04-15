@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CapitalizarPipe } from '../capitalizar.pipe';
@@ -18,55 +18,70 @@ import { ChangeDetectorRef } from '@angular/core';
   styleUrls: ['./lista-tareas.component.scss'],
 })
 
-// La clase TaskListComponent es el controlador del componente, donde se definen las propiedades 
+// La clase TaskListComponent es el controlador del componente, donde se definen las propiedades
 // y métodos necesarios para manejar la lógica de la aplicación.
 export class TaskListComponent {
   tareas: Task[] = []; // La propiedad tareas es un arreglo que almacenará la lista de tareas obtenida del servicio.
   nuevaDescripcion: string = ''; // La propiedad nuevaDescripcion se utiliza para almacenar la descripción de una nueva tarea que el usuario desea agregar.
 
-//El constructor del componente inyecta el servicio TaskStorageService, 
-//lo que permite acceder a los métodos del servicio para obtener, agregar o eliminar tareas.
+  //Variable para mostrar mensajes de alerta al usuario
+  mensaje: string | null = null;
+  // Variable para determinar el tipo de mensaje (éxito o error)
+  tipoMensaje: 'success' | 'error' | 'info' = 'info';
+
+  //El constructor del componente inyecta el servicio TaskStorageService,
+  //lo que permite acceder a los métodos del servicio para obtener, agregar o eliminar tareas.
   constructor(
     private taskStorageService: TaskStorageService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
   ) {
     this.tareas = this.taskStorageService.getTasks();
   }
 
-// El método agregarTarea se llama cuando el usuario hace clic en el botón "Agregar".
+  private mostrarNotificaciones(texto: string, tipo: 'success' | 'error' | 'info' = 'info') {
+    this.mensaje = texto;
+    this.tipoMensaje = tipo;
+    setTimeout(() => (this.mensaje = null),3000) //se oculta en 3seg
+  }
+  // El método agregarTarea se llama cuando el usuario hace clic en el botón "Agregar".
   agregarTarea(): void {
     const ok = this.taskStorageService.addTask(this.nuevaDescripcion);
-  // Si la tarea se agregó correctamente, se limpia el campo de entrada y se actualiza la lista de tareas.
+    // Si la tarea se agregó correctamente, se limpia el campo de entrada y se actualiza la lista de tareas.
     if (ok) {
       // Limpiar el campo de entrada después de agregar la tarea
       this.nuevaDescripcion = '';
       // Actualizar la lista de tareas después de agregar una nueva tarea
       this.tareas = [...this.taskStorageService.getTasks()];
       // Forzar la detección de cambios para actualizar la vista con la nueva lista de tareas.
-      this.cdr.detectChanges(); 
-  // Si la tarea no es válida, se muestra una alerta al usuario.
+      this.cdr.detectChanges();
+
+      // alerta para confirmar que la tarea se ha agregado correctamente
+      this.mostrarNotificaciones('Tarea agregada correctamente ✅', 'success');
+      // Si la tarea no es válida, se muestra una alerta al usuario.
     } else {
-      alert('La tarea no es válida');
+      this.mostrarNotificaciones('La tarea no es válida ❌', 'error');
     }
   }
 
-// El método eliminarTarea se llama cuando el usuario hace clic en el botón "Eliminar" junto a una tarea específica.
+  // El método eliminarTarea se llama cuando el usuario hace clic en el botón "Eliminar" junto a una tarea específica.
   eliminarTarea(index: number): void {
-  // Se llama al método deleteTask del servicio para eliminar la tarea en el índice especificado.
+    // Se llama al método deleteTask del servicio para eliminar la tarea en el índice especificado.
     this.taskStorageService.deleteTask(index);
-  // Después de eliminar la tarea, se actualiza la lista de tareas para reflejar los cambios.
+    // Después de eliminar la tarea, se actualiza la lista de tareas para reflejar los cambios.
     this.tareas = [...this.taskStorageService.getTasks()];
     // Forzar la detección de cambios para actualizar la vista con la nueva lista de tareas después de eliminar una tarea.
-    this.cdr.detectChanges(); 
+    this.cdr.detectChanges();
+    this.mostrarNotificaciones('Tarea eliminada correctamente 🗑️', 'success');
   }
 
-// El método toggleTaskCompletion se llama cuando el usuario hace clic en el botón "Completar" o "Desmarcar" junto a una tarea específica.
+  // El método toggleTaskCompletion se llama cuando el usuario hace clic en el botón "Completar" o "Desmarcar" junto a una tarea específica.
   toggleCompletion(index: number): void {
-  // Se llama al método toggleTaskCompletion del servicio para cambiar el estado de completada de la tarea en el índice especificado.
+    // Se llama al método toggleTaskCompletion del servicio para cambiar el estado de completada de la tarea en el índice especificado.
     this.taskStorageService.toggleTaskCompletion(index);
-  // Después de cambiar el estado de la tarea, se actualiza la lista de tareas para reflejar los cambios.
+    // Después de cambiar el estado de la tarea, se actualiza la lista de tareas para reflejar los cambios.
     this.tareas = [...this.taskStorageService.getTasks()];
     // Forzar la detección de cambios para actualizar la vista con la nueva lista de tareas después de cambiar el estado de completada.
-    this.cdr.detectChanges(); 
+    this.cdr.detectChanges();
+    this.mostrarNotificaciones('Tarea actualizada correctamente 🔁', 'success');
   }
 }

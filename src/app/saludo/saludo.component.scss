@@ -1,6 +1,9 @@
 :host {
   display: block;
   padding: 24px 16px;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); // fondo futurista
+  min-height: 100vh;
+  color: #f5f5f5;
 }
 
 .saludo-container {
@@ -9,95 +12,126 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
-  padding: 32px 20px;
-  background: linear-gradient(145deg, #ffffff, #f0f0f0);
-  border-radius: 16px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
-  transition: transform 180ms ease, box-shadow 180ms ease;
-  will-change: transform, box-shadow;
+  gap: 24px;
+  padding: 36px 24px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 20px rgba(0, 224, 255, 0.25);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
   position: relative;
-  overflow: visible; /* evitar recorte de sombra */
+  animation: fadeIn 0.6s ease forwards;
 }
 
+.saludo-container:hover,
+.saludo-container:focus-within {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 16px 32px rgba(0, 224, 255, 0.35);
+}
+
+/* Input futurista */
 input {
   width: 100%;
-  max-width: 300px;
-  padding: 12px 16px;
-  border: 2px solid #e0e0e0;
-  border-radius: 8px;
+  max-width: 320px;
+  padding: 14px 18px;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
   font-size: clamp(1rem, 2vw, 1.1rem);
-  transition: border-color 0.3s ease;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
 
   &:focus {
     outline: none;
-    border-color: #3498db;
+    border-color: #00e0ff;
+    box-shadow: 0 0 12px rgba(0, 224, 255, 0.7);
+    transform: scale(1.03);
   }
 }
 
+/* Botón futurista */
 button {
-  padding: 12px 24px;
-  background-color: #3498db;
+  padding: 12px 28px;
+  background: linear-gradient(135deg, #3498db, #2980b9);
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   font-size: clamp(0.9rem, 1.8vw, 1rem);
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 
   &:hover {
-    background-color: #2980b9;
+    transform: scale(1.08);
+    box-shadow: 0 0 14px rgba(52, 152, 219, 0.7);
+  }
+
+  &:focus {
+    outline: 2px solid #00e0ff;
+    outline-offset: 2px;
   }
 }
 
+/* Texto */
 p {
   font-size: clamp(1.1rem, 2.2vw, 1.3rem);
-  color: #2c3e50;
+  color: #f5f5f5;
   text-align: center;
   margin: 0;
   padding: 0;
+  text-shadow: 0 0 6px rgba(0, 224, 255, 0.5);
 }
 
-/* Ajustes para móviles */
+/* Animación de entrada */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile */
 @media (max-width: 600px) {
   :host {
     padding: 16px 12px;
   }
 
   .saludo-container {
-    padding: 24px 16px;
-    gap: 16px;
+    padding: 28px 18px;
+    gap: 18px;
   }
 
   input {
-    padding: 10px 14px;
+    padding: 12px 16px;
   }
 
   button {
-    padding: 10px 20px;
+    padding: 12px 24px;
     width: 100%;
-    max-width: 300px;
+    max-width: 320px;
   }
 }
 
-/* Efecto de "levantarse" al pasar el cursor o al recibir foco (teclado) */
-.saludo-container:hover,
-.saludo-container:focus-within {
-  transform: translateY(-8px);
-  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.16);
-  z-index: 20; /* elevar por encima de vecinos */
-}
-
-/* Capa sutil de overlay al hover (opcional) */
+/* Overlay sutil */
 .saludo-container::after {
-  content: "";
+  content: '';
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: linear-gradient(180deg, rgba(0,0,0,0.00), rgba(0,0,0,0.02));
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(0, 224, 255, 0.08));
   opacity: 0;
   pointer-events: none;
-  transition: opacity 180ms ease;
+  transition: opacity 0.3s ease;
 }
 
 .saludo-container:hover::after,
@@ -105,11 +139,13 @@ p {
   opacity: 1;
 }
 
-/* Respetar preferencia por menos movimiento */
+/* Menos movimiento */
 @media (prefers-reduced-motion: reduce) {
   .saludo-container {
     transition: none !important;
     transform: none !important;
   }
-  .saludo-container::after { transition: none !important; }
+  .saludo-container::after {
+    transition: none !important;
+  }
 }

@@ -7,22 +7,26 @@
     class="tarea-input"
   />
 
-  <!-- Boton para agregar la nueva tarea a la lista, que llama al método agregarTarea() cuando se hace clic -->
+  <!-- Botón para agregar la nueva tarea -->
   <button class="bt-crear" (click)="agregarTarea()">Agregar</button>
 </div>
 
-<!-- Lista de tareas, donde se itera sobre el arreglo de tareas utilizando *ngFor para mostrar cada tarea en la interfaz -->
+<!-- Notificación futurista -->
+<div class="toast-container" *ngIf="mensaje">
+  <div class="toast" [ngClass]="tipoMensaje">
+    {{ mensaje }}
+  </div>
+</div>
+
+<!-- Lista de tareas -->
 <ul class="tarea-list">
   <li *ngFor="let tarea of tareas; let i = index" class="tarea-item">
-    <!-- Se muestra la descripción de la tarea, aplicando un pipe personalizado llamado capitalizar para formatear el texto -->
     {{ tarea.descripcion | capitalizar }}
 
-    <!-- Botón para marcar completada/no completada -->
     <button class="bt-toggle" (click)="toggleCompletion(i)">
-      {{ tarea.completada ? 'Desmarcar' : 'Completar' }}
+      {{ tarea.completada ? 'Desmarcar' : 'Completada' }}
     </button>
 
-    <!-- Botón para eliminar -->
     <button class="bt-eliminar" (click)="eliminarTarea(i)">Eliminar ❌</button>
   </li>
 </ul>

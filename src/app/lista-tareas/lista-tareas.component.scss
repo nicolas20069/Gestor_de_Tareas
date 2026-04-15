@@ -1,29 +1,64 @@
+:host {
+  display: block;
+  padding: 24px 16px;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); // mismo fondo que saludo y acerca
+  min-height: 100vh;
+  color: #f5f5f5;
+}
+
 /* Contenedor del formulario de tarea */
 .tarea-form {
   display: flex;
-  gap: 12px;
+  gap: 14px;
   align-items: center;
   justify-content: center;
   margin: 2rem 0;
   padding: 0 75px;
 }
 
+/* Input futurista */
 .tarea-input {
   flex: 1 1 320px;
   min-width: 140px;
   padding: 14px 20px;
   font-size: 1.4rem;
-  border-radius: 10px;
-  border: 2px solid rgba(5, 3, 3, 0.12);
+  border-radius: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.08);
+  color: #f5f5f5;
+  transition:
+    border 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
+
+  &:focus {
+    border: 2px solid #00e0ff;
+    box-shadow: 0 0 12px rgba(0, 224, 255, 0.7);
+    transform: scale(1.03);
+    outline: none;
+  }
 }
 
+/* Lista de tareas */
 .tarea-list {
   list-style: none;
   padding: 0 80px;
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 20px;
+}
+
+/* Animación de aparición */
+@keyframes fadeInTask {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .tarea-item {
@@ -31,69 +66,126 @@
   align-items: center;
   justify-content: space-between;
   font-size: 1.4rem;
-  padding: 10px 20px;
-  border-radius: 8px;
-  background: rgba(0, 0, 0, 0.03);
+  padding: 16px 24px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 6px 16px rgba(0, 224, 255, 0.25);
+  animation: fadeInTask 0.5s ease forwards;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 .tarea-item:hover {
-  background-color: rgba(0, 0, 0, 0.06);
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 12px 28px rgba(0, 224, 255, 0.35);
+}
+
+/* Botones futuristas */
+.bt-crear,
+.bt-toggle,
+.bt-eliminar {
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 10px 18px;
+  font-size: 1rem;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.3s ease;
 }
 
 .bt-crear {
-  background-color: #49ac4c;
+  background: linear-gradient(135deg, #49ac4c, #2f8433);
   color: white;
-  font-size: 1.1rem;
-  padding: 10px 14px;
-  border-radius: 8px;
-  cursor: pointer;
-  white-space: nowrap;
-  border: none;
 }
 .bt-crear:hover {
-  background-color: #2f8433;
+  transform: scale(1.08);
+  box-shadow: 0 0 14px rgba(73, 172, 76, 0.7);
 }
 
 .bt-toggle {
-  background-color: #3498db;
+  background: linear-gradient(135deg, #3498db, #2980b9);
   color: white;
-  border: none;
-  font-size: 0.95rem;
-  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  padding: 4px 4px;
-  border-radius: 8px;
-  cursor: pointer;
 }
 .bt-toggle:hover {
-  background-color: #2980b9;
+  transform: scale(1.08);
+  box-shadow: 0 0 14px rgba(52, 152, 219, 0.7);
 }
 
 .bt-eliminar {
-  background-color: #e74c3c;
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
   color: white;
-  border: none;
-  font-size: 0.95rem;
-  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  padding: 4px 4px;
-  border-radius: 8px;
-  cursor: pointer;
 }
 .bt-eliminar:hover {
-  background-color: #c0392b;
+  transform: scale(1.08);
+  box-shadow: 0 0 14px rgba(231, 76, 60, 0.7);
 }
 
+/* Estados de foco */
 .bt-crear:focus,
 .bt-eliminar:focus,
 .bt-toggle:focus {
-  outline: 2px solid #000;
+  outline: 2px solid #00e0ff;
   outline-offset: 2px;
 }
 
-/* Mobile: apilar y ocupar ancho completo */
+/* Notificaciones futuristas */
+.toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+}
+
+.toast {
+  padding: 14px 22px;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  color: #fff;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 6px 16px rgba(0, 224, 255, 0.25);
+  animation:
+    slideIn 0.4s ease,
+    fadeOut 0.4s ease 2.6s forwards;
+}
+
+.toast.success {
+  background: linear-gradient(135deg, #49ac4c, #2f8433);
+}
+.toast.error {
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+}
+.toast.info {
+  background: linear-gradient(135deg, #3498db, #2980b9);
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+/* Mobile */
 @media (max-width: 600px) {
   .tarea-form {
     flex-direction: column;
     align-items: stretch;
-    gap: 8px;
+    gap: 12px;
     margin: 1rem 12px;
   }
 
@@ -103,12 +195,18 @@
 
   .bt-crear {
     width: 100%;
-    padding: 12px;
+    padding: 14px;
   }
 
   .tarea-item {
     flex-direction: row;
-    gap: 8px;
-    padding: 12px;
+    gap: 12px;
+    padding: 14px;
+  }
+
+  .toast-container {
+    top: auto;
+    bottom: 20px;
+    right: 10px;
   }
 }
