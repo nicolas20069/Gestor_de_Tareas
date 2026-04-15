@@ -1,109 +1,133 @@
-# GestorTareas
+# 📌 Gestor de Tareas
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.9.
+Aplicación web desarrollada con **Angular** para la gestión de tareas, con arquitectura modular, persistencia en `localStorage`, validaciones y un diseño futurista con SCSS.
 
-## Development server
+---
 
-To start a local development server, run:
+## Características principales
+
+- **Gestión de tareas**: agregar, marcar como completadas, desmarcar y eliminar.
+- **Persistencia**: almacenamiento en `localStorage` para mantener datos incluso tras recargar la página.
+- **Validaciones**: evita tareas vacías o con longitud incorrecta.
+- **Arquitectura modular**: servicios inyectables y componentes standalone.
+- **Angular Forms**: captura y validación de datos.
+- **Pipe personalizado**: capitalización automática de descripciones.
+- **Diseño futurista**: estilos SCSS con glassmorphism, gradientes y animaciones.
+- **Notificaciones interactivas**: sistema de _toast_ para confirmar acciones (agregar, eliminar, actualizar).
+
+---
+
+## Tecnologías utilizadas
+
+- **Angular 20.x**
+- **TypeScript ~5.9**
+- **SCSS** (estilos por componente y `src/styles.scss`)
+- **Angular Router**
+- **Angular Forms**
+- **RxJS / Zone.js**
+- **Angular CLI / @angular/build**
+- **Karma + Jasmine** (tests)
+- **Prettier** (formateo consistente)
+
+---
+
+## Estructura del proyecto
+
+Gestor_de_Tareas/
+├── src/
+│ ├── app/
+│ │ ├── inicio/ # Pantalla principal
+│ │ ├── saludo/ # Componente de saludo
+│ │ ├── acerca/ # Información del proyecto
+│ │ ├── lista-tareas/ # Gestión de tareas
+│ │ ├── navbar/ # Barra de navegación
+│ │ ├── services/ # Servicios (ej. TaskStorageService)
+│ │ └── capitalizar.pipe.ts # Pipe personalizado
+│ ├── assets/ # Recursos estáticos
+│ └── styles.scss # Estilos globales
+├── angular.json # Configuración Angular
+├── package.json # Dependencias y scripts
+└── README.md # Documentación
+
+---
+
+## Requisitos previos
+
+- **Node.js 18+** (recomendado: Node 18 o 20)
+- **npm** (o pnpm/yarn)
+
+---
+
+## Instalación
 
 ```bash
-ng serve
+# Clonar el repositorio
+git clone https://github.com/nicolas20069/Gestor_de_Tareas.git
+cd Gestor_de_Tareas
 
-## GestorTareas
-
-Pequeña aplicación de ejemplo para gestionar tareas utilizando Angular.
-
-## Tecnologías principales
-- Angular 20.x
-- TypeScript (~5.9)
-- SCSS (estilos por componente y `src/styles.scss`)
-- Angular Router, Angular Forms
-- RxJS, Zone.js
-- Angular CLI / @angular/build
-- Karma + Jasmine (tests)
-- Prettier
-
-## Requisitos
-- Node.js 18+ (recomendado: Node 18 o 20)
-- npm (o pnpm/yarn si prefieres)
-
-### Instalación
-Desde la raíz del proyecto:
-
-```powershell
-# instalar dependencias
+# Instalar dependencias
 npm install
 ```
+---
 
-### Desarrollo (server)
-Inicia el servidor de desarrollo y abre http://localhost:4200/:
-
-```powershell
+## Desarrollo
+# Iniciar servidor de desarrollo
 npm start
 # o
 ng serve
-```
+- Abrir en navegador: http://localhost:4200/
 
-### Build de producción
-
-```powershell
+## Build de producción
 npm run build
-```
 
-Los artefactos finales se generan en `dist/`.
-
-### Tests
-
-```powershell
+## Tests
 npm test
-```
 
-## Estructura y puntos importantes
-- `src/app` — componentes y servicios. Los componentes usan `standalone: true`.
-- `src/styles.scss` — estilos globales.
-- SCSS por componente (recomendado mantener modularidad).
-- `angular.json` contiene la configuración de build/serve.
+---
 
-## Troubleshooting (Windows): error EPERM al renombrar `.angular\cache`
-Si al ejecutar `ng serve` ves un error tipo:
+## Funcionalidades destacadas
+- Inicio: pantalla principal impactante con tarjeta holográfica y animación de entrada.
 
-```
-EPERM: operation not permitted, rename '.angular\cache\...deps_temp_xxx' -> '.angular\cache\...deps'
-```
+- Saludo: componente interactivo con input y botón futurista.
 
-Prueba estos pasos (PowerShell):
+- Acerca: información del proyecto con diseño glassmorphism.
 
-1. Asegúrate de que no haya procesos node que bloqueen archivos:
+- Lista de tareas: gestión completa con notificaciones tipo toast.
 
-```powershell
-# listar procesos node
-Get-Process node -ErrorAction SilentlyContinue | Select-Object Id, ProcessName
+- Navbar: barra de navegación con gradiente futurista y menú móvil animado.
 
-# cerrar procesos node si los hay (cuidado: mata todos los node)
-Get-Process node -ErrorAction SilentlyContinue | Stop-Process -Force
-```
+---
 
-2. Borra la caché de Angular:
+## Troubleshooting (Windows)
+Si aparece el error EPERM: operation not permitted, rename '.angular/cache...':
 
-```powershell
-Remove-Item -LiteralPath ".angular\cache" -Recurse -Force -ErrorAction SilentlyContinue
-```
+1. Cierra procesos node activos:
+Get-Process node | Stop-Process -Force
 
-3. Reinicia el servidor:
+2. Borra ka caché de Angular
+Remove-Item -LiteralPath ".angular/cache" -Recurse -Force
 
-```powershell
-ng serve
-```
+3. Reinicia el servidor con ng serve.
 
-Si sigue ocurriendo:
-- Ejecuta PowerShell como Administrador.
-- Comprueba que un anti-virus o Windows Defender no esté bloqueando la carpeta; añade una exclusión temporal para la carpeta del proyecto.
-- Usa Resource Monitor o Sysinternals Handle.exe para identificar el proceso que mantiene un handle en la carpeta.
+---
 
-## Recomendaciones y buenas prácticas
-- Añade en `.gitignore`: `/.angular/`, `node_modules/`, `dist/`.
-- Añade un fichero `engines` en `package.json` o en README indicando la versión de Node recomendada.
-- Usa Prettier configurado en `package.json` para formateo consistente.
-- Considera añadir ESLint para reglas estáticas.
+## Buenas prácticas
+- Ignorar carpetas en .gitignore:
+/node_modules/
+/dist/
+/.angular/
 
+- Definir versión de Node en package.json (engines).
 
+- Usar Prettier para formateo consistente.
+
+- Considerar ESLint para reglas estáticas.
+
+---
+
+## Autor
+Nicolas Melo Yandún
+GitHub (github.com in Bing)
+
+📊 Lenguajes
+TypeScript, SCSS, HTML.
